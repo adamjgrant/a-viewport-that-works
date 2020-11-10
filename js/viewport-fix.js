@@ -1,6 +1,6 @@
 class VVP {
   constructor() {
-    this.enabled = typeof(window.visualViewport) === "object";
+    this.enabled = typeof (window.visualViewport) === "object";
     if (!this.enabled) {
       console.error("Visual Viewport is not available in this browser.");
     }
@@ -9,7 +9,27 @@ class VVP {
     this.create_style_element();
     this.refresh();
 
-    window.visualViewport.addEventListener('resize', () => {this.refresh();});
+    window.visualViewport.addEventListener('resize', () => {
+      this.refresh();
+    });
+  }
+
+  get style_element() {
+    return document.getElementById("viewport_fix_variables");
+  }
+
+  get calculate_viewport() {
+    return new Promise((resolve, reject) => {
+      if (!this.enabled) {
+        return reject("Could not calculate window.visualViewport");
+      }
+      this.vvp.w = window.visualViewport.width;
+      this.vvp.h = window.visualViewport.height;
+
+      this.vp.w = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      this.vp.h = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
+      return resolve();
+    })
   }
 
   refresh() {
@@ -22,10 +42,6 @@ class VVP {
     return document.head.prepend(style_tag);
   }
 
-  get style_element() {
-    return document.getElementById("viewport_fix_variables");
-  }
-
   set_viewport() {
     return this.style_element.innerHTML = `
       :root {
@@ -36,17 +52,5 @@ class VVP {
         --offset-h: ${this.vp.h - this.vvp.h}px;
       }
     `;
-  }
-
-  get calculate_viewport() {
-    return new Promise((resolve, reject) => {
-      if (!this.enabled) { return reject("Could not calculate window.visualViewport"); }
-      this.vvp.w  = window.visualViewport.width;
-      this.vvp.h = window.visualViewport.height;
-
-      this.vp.w = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
-      this.vp.h = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
-      return resolve();
-    })
   }
 }
