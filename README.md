@@ -1,6 +1,6 @@
 # A Viewport that Works
 
-![](img/ios.gif)
+<br><img src="img/ios.gif" width="363" height="667">
 
 ## Problem
 
