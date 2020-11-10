@@ -11,14 +11,20 @@ viewport_readout.id = "viewport_readout";
 viewport.appendChild(viewport_readout);
 const viewport_readout_element = document.getElementById("viewport_readout");
 const display_viewport_info = () => {
-  return;
   const vvp = window.visualViewport;
-  const vp = { width: document.body.clientWidth, height: document.body.clientHeight };
+  const vp = { width: window.innerWidth, height: window.innerHeight };
   viewport_readout_element.innerHTML = `
-    Visual Viewport: ${vvp.width}x${vvp.height}
+    <h3>Refreshes every two seconds</h3>
+    <p>Visual Viewport: ${vvp.width}x${vvp.height}
     <br>
-    Actual Viewport: ${vp.width}x${vp.height}
+    Actual Viewport: ${vp.width}x${vp.height}</p>
   `;
 };
 display_viewport_info();
 window.setInterval(display_viewport_info, 2000);
+
+const partial_viewport = document.createElement("div");
+partial_viewport.id = "partial_viewport";
+partial_viewport.className = "partial_viewport";
+partial_viewport.innerHTML = "20% VVH & VVW"
+viewport.appendChild(partial_viewport);

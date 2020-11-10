@@ -31,3 +31,17 @@ body {
 input.demo {
   display: block;
 }
+
+.partial_viewport {
+  background: darkgreen;
+  color: white;
+  padding: 25px;
+  box-sizing: border-box;
+  display: block;
+  height: calc(var(--100vvh, 100vh) * 0.2);
+  width: calc(var(--100vvw, 100vw) * 0.2);
+  position: absolute;
+  top: 50%;
+  margin-top: calc(var(--100vh, 100vh)/-20);
+  right: 0;
+}

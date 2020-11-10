@@ -1,8 +1,5 @@
 class VVP {
-  constructor(opts={}) {
-    this.window_resize_throttle_in_ms = opts.window_resize_throttle_in_ms || 150;
-    this.auto_refresh_throttle_in_ms = opts.auto_refresh_throttle_in_ms || 300;
-    this.debounceQueue = {};
+  constructor() {
     this.enabled = typeof(window.visualViewport) === "object";
     if (!this.enabled) {
       console.error("Visual Viewport is not available in this browser.");
@@ -11,9 +8,7 @@ class VVP {
     this.create_style_element();
     this.refresh();
 
-    window.visualViewport.addEventListener('resize', () => {
-      this.refresh();
-    });
+    window.visualViewport.addEventListener('resize', () => {this.refresh();});
   }
 
   refresh() {
@@ -46,25 +41,5 @@ class VVP {
       this.vvp.height = window.visualViewport.height;
       return resolve();
     })
-  }
-
-  debounce(fn, args) {
-      args = args || [];
-      if (typeof this.debounceQueue["viewport"] !== "object") {
-      this.debounceQueue["viewport"] = {};
-    }
-    if (typeof this.debounceQueue["viewport"].debounceTimer !== "undefined") {
-      clearTimeout(this.debounceQueue["viewport"].debounceTimer);
-    }
-    return this.debounceQueue["viewport"] = {
-      fn: fn,
-      id: "viewport",
-      delay: this.refresh_rate_in_milliseconds,
-      args: args,
-      debounceTimer: setTimeout(function() {
-        this.debounceQueue["viewport"].fn.apply(this, this.debounceQueue["viewport"].args);
-        return this.debounceQueue["viewport"] = void 0;
-      }, this.refresh_rate_in_milliseconds)
-    };
   }
 }
