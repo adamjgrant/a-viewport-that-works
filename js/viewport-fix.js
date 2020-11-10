@@ -9,9 +9,7 @@ class VVP {
     this.create_style_element();
     this.refresh();
 
-    window.visualViewport.addEventListener('resize', () => {
-      this.refresh();
-    });
+    window.visualViewport.addEventListener('resize', this.refresh.bind(this));
   }
 
   get style_element() {
