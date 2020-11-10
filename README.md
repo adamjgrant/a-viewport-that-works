@@ -4,7 +4,8 @@
 
 CSS provides easy ways to measure content on screen according to the viewport, but some browsers and some devices don't quite behave the way you'd expect.
 
-### Example
+### Example ([Demo](https://adamjgrant.github.io/a-viewport-that-works/))
+
 #### Keyboard closed
 Notice the "end of viewport" label at the bottom.
 
@@ -57,3 +58,5 @@ In an existing HTML file, you'll need the following:
    <script src="js/viewport-fix.js"></script>
    <script>new VVP()</script>
    ~~~
+   
+Now just treat `<div id="viewport"></div>` as if it were the `<body>` tag.
