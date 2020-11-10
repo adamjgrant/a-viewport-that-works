@@ -42,7 +42,7 @@ Copy `index.html` and delete these lines
 
 You'll now have a blank canvas like this:
 
-<br><img src="img/ios.gif" width="363" height="667">
+<br><img src="img/ios5.png" width="363" height="667">
 
 Now just treat `<div id="viewport"></div>` as if it were the `<body>` tag.
 
