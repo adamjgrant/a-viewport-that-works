@@ -175,3 +175,25 @@ Instead of
   bottom: calc(var(--offset-h, 0) + 20px);
 }
 ~~~
+
+# How does it work?
+
+In order to use as little JavaScript as possible, we listen to the new `window.visualViewport` 
+`resize()` event and pull from the `visualViewport` height and width.
+
+To let you keep writing CSS, these values are written into the DOM in a style tag as so:
+
+~~~html
+<style id="viewport_fix_variables">
+  :root {
+    --100vvw: 1503px;
+    --100vvh: 1082px;
+    
+    --offset-w: 0px;
+    --offset-h: 0px;
+  }
+</style>
+~~~
+
+By simply using native CSS functions for variables and calculation, the CSS will
+automatically respect these values in place of `vh` and `vw`.
