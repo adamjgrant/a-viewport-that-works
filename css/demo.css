@@ -1,5 +1,6 @@
 body {
   background: red;
+  font-family: sans-serif;
 }
 
 #viewport {
@@ -20,6 +21,8 @@ body {
   text-align: center;
   margin-left: -25vw;
   opacity: 0.5;
+  font-size: 16px;
+  padding: 15px;
 }
 
 #viewport:before {
@@ -44,4 +47,14 @@ input.demo {
   top: 50%;
   margin-top: calc(var(--100vh, 100vh)/-20);
   right: 0;
+}
+
+.fixed_item {
+  position: fixed;
+  bottom: var(--offset-h, 0);
+  left: 0;
+  width: 150px;
+  background: darkgreen;
+  color: white;
+  padding: 15px;
 }

@@ -26,7 +26,7 @@ With A Viewport that Works, we can fix this instantly with very little CSS and J
 
 <br><img src="img/ios4.png" width="363" height="667">
 
-# How to use
+# Installation
 
 ## Quickstart
 
@@ -60,3 +60,116 @@ In an existing HTML file, you'll need the following:
    ~~~
    
 Now just treat `<div id="viewport"></div>` as if it were the `<body>` tag.
+
+# How to use
+
+## Viewport Measurements
+
+Use the CSS variables `--100vvh` and `--100vvw` in place of `100vh` and `100vw` respectively.
+I recommend passing in the native `100vh` or `100vw` as the fallback value. This will allow
+the browser to use the regular viewport height/width for the split second until the visual
+viewport has done its initial calculation.
+
+#### Example
+
+~~~css
+.sidebar {
+  height: var(--100vvh, 100vh);
+}
+~~~
+
+For partial measurements, use `calc()` with a decimal value.
+
+#### Example
+
+Instead of
+
+~~~css
+.button { 
+  height: 20vh;
+}
+~~~
+
+...do this
+
+~~~css
+.button {
+  height: calc(var(--100vvh, 100vh) * 0.2);
+}
+~~~
+
+## Positioning
+
+### Absolute
+
+`<div id="viewport"></div>` is meant to work as if it were the `<body>` of the document.
+As such, viewport-fix.css sets it as `position: relative` and `overflow: auto`.
+
+This means as long as elements are in `#viewport` with no relative positioned elements
+in between, you can simply `absolute` position your elements as you would in
+`<body>`.
+
+#### Example
+
+~~~css
+.bottom-menu-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+~~~
+
+### Fixed
+
+Fixed positioning is a little different, so the values `--offset-h` and `--offset-w` are provided.
+
+#### Example
+
+Instead of
+
+~~~css
+.sticky-bottom-menu-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+~~~
+
+...do this
+
+~~~css
+.sticky-bottom-menu-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: var(--offset-h, 0);
+}
+~~~
+
+#### Example with offset
+
+If a nonzero number is required, again, just use CSS `calc()`
+
+Instead of
+
+~~~css
+.sticky-bottom-menu-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 20px;
+}
+~~~
+
+...do this
+
+~~~css
+.sticky-bottom-menu-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: calc(var(--offset-h, 0) + 20px);
+}
+~~~

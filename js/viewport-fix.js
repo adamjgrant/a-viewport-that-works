@@ -4,7 +4,8 @@ class VVP {
     if (!this.enabled) {
       console.error("Visual Viewport is not available in this browser.");
     }
-    this.vvp = {width: 0, height: 0}
+    this.vvp = {w: 0, h: 0};
+    this.vp = {w: 0, h: 0};
     this.create_style_element();
     this.refresh();
 
@@ -28,8 +29,11 @@ class VVP {
   set_viewport() {
     return this.style_element.innerHTML = `
       :root {
-        --100vvw: ${this.vvp.width}px;
-        --100vvh: ${this.vvp.height}px;
+        --100vvw: ${this.vvp.w}px;
+        --100vvh: ${this.vvp.h}px;
+        
+        --offset-w: ${this.vp.w - this.vvp.w}px;
+        --offset-h: ${this.vp.h - this.vvp.h}px;
       }
     `;
   }
@@ -37,8 +41,11 @@ class VVP {
   get calculate_viewport() {
     return new Promise((resolve, reject) => {
       if (!this.enabled) { return reject("Could not calculate window.visualViewport"); }
-      this.vvp.width  = window.visualViewport.width;
-      this.vvp.height = window.visualViewport.height;
+      this.vvp.w  = window.visualViewport.width;
+      this.vvp.h = window.visualViewport.height;
+
+      this.vp.w = Math.max(document.documentElement.clientWidth || 0, window.innerWidth || 0);
+      this.vp.h = Math.max(document.documentElement.clientHeight || 0, window.innerHeight || 0);
       return resolve();
     })
   }
