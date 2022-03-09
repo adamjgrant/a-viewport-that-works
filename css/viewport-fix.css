@@ -1,6 +1,6 @@
 #viewport, body {
   height: var(--100vvh, 100vh);
-  width: var(--100vvw, 100vw);;
+  width: var(--100vvw, 100vw);
   overflow: auto;
   position: relative;
 }
